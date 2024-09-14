@@ -12,6 +12,7 @@ class CountryCursorPagination(CursorPagination):
             'results': data
         })
 
+    # Definición del esquema de la respuesta paginada para la documentación de la API
     def get_paginated_response_schema(self, schema):
         return {
             'type': 'object',

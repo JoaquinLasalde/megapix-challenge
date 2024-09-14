@@ -16,20 +16,24 @@ COOLDOWN_TIME = 60 * 5  # 5 minutos
 def update_countries(self):
     lock_id = "update_countries_lock"
     
+    # Intenta adquirir un bloqueo para evitar ejecuciones simultáneas
     acquired = cache.add(lock_id, "lock", LOCK_EXPIRE)
     if not acquired:
         logger.info("La tarea ya está en ejecución. Saltando esta ejecución.")
         return "La tarea ya está en ejecución. Ejecución saltada."
 
     try:
+        # Verifica si la tarea se ejecutó recientemente
         last_run = cache.get("last_update_countries_run")
         if last_run and time.time() - float(last_run) < COOLDOWN_TIME:
             logger.info("La tarea se ejecutó recientemente. Saltando debido al tiempo de espera.")
             return "Tarea saltada debido al tiempo de espera"
 
+        # URL de la API externa para obtener datos de países
         url = "https://restcountries.com/v3.1/all?fields=name,flags,capital,population,continents,timezones,area,latlng"
         
         try:
+            # Realiza la solicitud a la API externa
             response = requests.get(url, timeout=30)
             response.raise_for_status()
             countries_data = response.json()
@@ -43,6 +47,7 @@ def update_countries(self):
             logger.error(f"Error al conectar con la API externa: {req_err}")
             raise self.retry(countdown=60)
 
+        # Actualiza la base de datos con los nuevos datos de países
         with transaction.atomic():
             try:
                 for country_data in countries_data:
@@ -73,6 +78,7 @@ def update_countries(self):
                 logger.error(f"Error operacional con la base de datos: {oe}")
                 raise self.retry(countdown=60)
         
+        # Actualiza el tiempo de la última ejecución exitosa
         cache.set("last_update_countries_run", str(time.time()), COOLDOWN_TIME)
         
         logger.info(f"Se actualizaron exitosamente {len(countries_data)} países")
@@ -82,4 +88,5 @@ def update_countries(self):
         logger.error(f"Error al actualizar países: {str(e)}")
         raise self.retry(exc=e, countdown=60)
     finally:
+        # Libera el bloqueo al finalizar
         cache.delete(lock_id)
