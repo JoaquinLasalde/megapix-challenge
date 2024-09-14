@@ -62,4 +62,3 @@ El endpoint soporta paginación y filtrado. Algunos ejemplos de uso:
 - El proyecto utiliza Docker y Docker Compose, asegúrese de tenerlos instalados en su sistema antes de comenzar.
 - La única dependencia externa del proyecto es el endpoint de `restcountries.com`, que se utiliza para obtener los datos de los países.
 - Si encuentra algún problema durante la configuración o ejecución, verifique los logs de los contenedores usando `docker-compose logs [service_name]`.
-- Asegúrese de no compartir su archivo `.env` con valores reales en repositorios públicos o con personas no autorizadas.# megapix-challenge
