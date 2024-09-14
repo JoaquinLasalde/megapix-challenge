@@ -1,0 +1,36 @@
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Visual Studio Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Virtual environment
+venv/
+
+# PyCharm
+.idea/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Environments
+.env
+.venv
