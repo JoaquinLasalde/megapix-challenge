@@ -6,8 +6,8 @@ Siga estos pasos para configurar y ejecutar el proyecto:
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/JoaquinLasalde/megapix_challenge.git
-cd megapix_challenge
+git clone https://github.com/JoaquinLasalde/megapix-challenge.git
+cd megapix-challenge
 ```
 
 ### 2. Configurar las variables de entorno
