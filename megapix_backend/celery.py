@@ -14,8 +14,8 @@ app.autodiscover_tasks()
 # Configura tareas periódicas
 app.conf.beat_schedule = {
     'update-countries-every-hour': {
-        'task': 'countries.tasks.update_countries', # Ruta a la tarea que se ejecutará
-        'schedule': crontab(minute=0, hour='*'), # Ejecutar cada hora en el minuto 0
+        'task': 'countries.tasks.update_countries',
+        'schedule': crontab(minute=0, hour='*'),
     },
 }
 

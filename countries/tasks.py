@@ -9,7 +9,7 @@ from requests.exceptions import RequestException, Timeout, HTTPError
 
 logger = get_task_logger(__name__)
 
-LOCK_EXPIRE = 60 * 60  # 1 hora
+LOCK_EXPIRE = 60 * 30  # 30 minutos
 COOLDOWN_TIME = 60 * 5  # 5 minutos
 
 @shared_task(bind=True, max_retries=3)
